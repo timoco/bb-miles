@@ -8,12 +8,9 @@ import {parse} from '../utils'
 import '../style/main.css';
 
 const projection = d3.geoMercator();
-const path = d3.geoPath().projection(projection);
-
-
 
 // defining Factory function
-function Mapping(_) {
+function Ballparks(_) {
 
     // TO DO: create getter-setter variables in factory scope
 
@@ -29,22 +26,28 @@ function Mapping(_) {
         projection.center([-98,39])
             .scale(width);
 
-        const svg = d3.select(root)
-            .append('svg')
-            .attr('width', width + margin.l + margin.r)
-            .attr('height', height + margin.t + margin.b);
-
-        const map = svg.append('g')
-            .attr('transform', `translate(${margin.l},${margin.t})`)
-            .classed('map', true)
-            .selectAll('.base')
-            .data(data.features)
-            .enter()
-            .append('path')
-            .classed('base', true)
-            .attr('d', path);
-
         // Data Transformation
+        let locations = [];
+
+        for (let i = 0; i < data.features.length; i++) {
+            locations.push( {
+                    lat: data.features[i].geometry.coordinates[1],
+                    lon: data.features[i].geometry.coordinates[0],
+                    ballpark: data.features[i].properties.Ballpark
+                }
+            )
+        }
+
+        const circles = d3.select('.map')
+            .selectAll('.ballparks')
+            .data(locations)
+            .enter()
+            .append('circle')
+            .classed('ballparks', true)
+            .attr('cx', d => projection([d.lon, d.lat])[0])
+            .attr('cy', d => projection([d.lon, d.lat])[1])
+            .attr('r', 3)
+            .attr('fill', 'red');
 
     }
 
@@ -55,6 +58,6 @@ function Mapping(_) {
 }
 
 // exporting factory function as default
-export default Mapping;
+export default Ballparks;
 
 // creating projection

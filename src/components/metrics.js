@@ -5,7 +5,7 @@ import * as d3 from 'd3';
 import {gridData} from '../utils'
 
 // importing stylesheets
-import '../style/table.css';
+import '../style/main.css';
 
 // defining Factory function
 function Metrics(_) {
