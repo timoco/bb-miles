@@ -2,22 +2,28 @@ div > * {
     border: 1pt dashed black;
 }
 
+/* this works for screen-widths greater than 1200px */
+
 .container {
-    display:flex;
-    flex-direction: row;
+  height: 100%;
+  display: grid;
+  grid-template-areas:
+      "h h h h h h h h h h h h"
+      "c c c c c c c c c c c c"
+      "f f f f f f f f f f f f";
+}
+
+.header {
+  grid-area: h;
+  display: flex;
 }
 
 .main-container {
-    width:1000px;
-    height:500px;
-}
 
-.svg {
-    border: 1pt solid black;
-}
+    /* this needs to be on its own line
+     * for the sake of the D3 code on top of the map */
+    grid-area: c;
 
-.grid.horizontal,
-.grid.vertical {
-    stroke-width:1px;
-    stroke:black;
+    width:auto;
+    height:600px;
 }
