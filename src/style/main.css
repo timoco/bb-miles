@@ -2,22 +2,47 @@ div > * {
     border: 1pt dashed black;
 }
 
+/* this works for screen-widths greater than 1200px */
+
+body {
+  background-color: #1A3552;
+}
+
 .container {
-    display:flex;
-    flex-direction: row;
+  background-color: #1A3552;
+
+  height: 100%;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows:  auto 40px;
+  grid-template-areas:
+      "h h h h h h h h h h h h"
+      "m m m m m m m c c c c c"
+      "d d d d d d d d d d d d";
+}
+
+.header {
+  grid-area: h;
+  display: flex;
+  background-color: #1A3552;
+}
+
+.header > h1 {
+  color: #F8F7FC;
 }
 
 .main-container {
-    width:1000px;
-    height:500px;
+
+    /* this needs to be on its own line
+     * for the sake of the D3 code on top of the map */
+    grid-area: m;
+
+    width:auto;
+    height:400px;
 }
 
-.svg {
-    border: 1pt solid black;
-}
 
-.grid.horizontal,
-.grid.vertical {
-    stroke-width:1px;
-    stroke:black;
+.side-container {
+  grid-area: c;
 }
