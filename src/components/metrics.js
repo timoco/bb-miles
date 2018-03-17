@@ -33,14 +33,14 @@ function Metrics(_) {
         data.sort((a,b) => a.ogc_fid - b.ogc_fid);
 
         const scaleX = d3.scaleLinear().domain([0,162]).range([20,width-20]);
-        const scaleY = d3.scaleLinear().domain([0,100]).range([280,0]);
+        const scaleY = d3.scaleLinear().domain([0,90]).range([280,0]);
 
         console.log(data);
 
         const svg = d3.select(root)
             .append('svg')
             .attr('width', width)
-            .attr('height', '300px');
+            .attr('height', '320px');
 
         const path = d3.line()
             .curve(d3.curveStepAfter)
@@ -58,11 +58,12 @@ function Metrics(_) {
 
         // Add the X Axis
         svg.append("g")
-              .attr("transform", "translate(20,280)")
+              .attr("transform", "translate(0,280)")
               .call(d3.axisBottom(scaleX));
 
         // Add the Y Axis
         svg.append("g")
+              .attr("transform", "translate(20,0)")
               .call(d3.axisLeft(scaleY));
 
     }
