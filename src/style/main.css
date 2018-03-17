@@ -9,15 +9,17 @@ body {
 }
 
 .container {
-  height: 100%;
-
   background-color: #1A3552;
 
+  height: 100%;
   display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows:  auto 40px;
   grid-template-areas:
       "h h h h h h h h h h h h"
-      "m m m m m m m m m m m m"
-      "f f f f f f f f f f f f";
+      "m m m m m m m c c c c c"
+      "d d d d d d d d d d d d";
 }
 
 .header {
@@ -37,9 +39,10 @@ body {
     grid-area: m;
 
     width:auto;
-    height:600px;
+    height:400px;
 }
 
-.side-container {
 
+.side-container {
+  grid-area: d;
 }
