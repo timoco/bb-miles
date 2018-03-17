@@ -19,19 +19,51 @@ function Metrics(_) {
         // declaring setup/layout variables
         const width = root.clientWidth;
         const height = root.clientHeight;
-        const margin = {t:0, r:0, b:0, l:0};
+        const margin = {t:20, r:20, b:20, l:20};
 
         // data transformation
-        
 
-        const totalLength = path.node().getTotalLength();
+        data.forEach(
+            d => {
+                d.cumm_w = +d.w_l.split('-')[0];
+                d.ogc_fid = +d.ogc_fid;
+            }
+        );
 
-        trip.attr("stroke-dasharray", totalLength + " " + totalLength)
-          .attr("stroke-dashoffset", totalLength)
-          .transition()
-          .duration(2000)
-          .ease("linear")
-          .attr("stroke-dashoffset", 0);
+        data.sort((a,b) => a.ogc_fid - b.ogc_fid);
+
+        const scaleX = d3.scaleLinear().domain([0,162]).range([20,width-20]);
+        const scaleY = d3.scaleLinear().domain([0,100]).range([280,0]);
+
+        console.log(data);
+
+        const svg = d3.select(root)
+            .append('svg')
+            .attr('width', width)
+            .attr('height', '300px');
+
+        const path = d3.line()
+            .curve(d3.curveStepAfter)
+            .x(d => scaleX(d.ogc_fid))
+            .y(d => scaleY(d.cumm_w));
+
+        const plot = svg.append('g')
+            // .attr("transform", `translate(${margin.l},${margin.t})`)
+            .append('path')
+            .data([data])
+            .attr("fill", "none")
+            .attr("stroke", "white")
+            .attr('stroke-width', 1.5)
+            .attr('d', path);
+
+        // Add the X Axis
+        svg.append("g")
+              .attr("transform", "translate(20,280)")
+              .call(d3.axisBottom(scaleX));
+
+        // Add the Y Axis
+        svg.append("g")
+              .call(d3.axisLeft(scaleY));
 
     }
 
@@ -43,3 +75,13 @@ function Metrics(_) {
 
 // exporting factory function as default
 export default Metrics;
+
+
+// const totalLength = path.node().getTotalLength();
+//
+// trip.attr("stroke-dasharray", totalLength + " " + totalLength)
+//   .attr("stroke-dashoffset", totalLength)
+//   .transition()
+//   .duration(2000)
+//   .ease("linear")
+//   .attr("stroke-dashoffset", 0);

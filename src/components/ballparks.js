@@ -2,7 +2,7 @@
 import * as d3 from 'd3';
 
 // importing gridData
-import {parse} from '../utils'
+import {parse, calcDist} from '../utils'
 
 // importing stylesheets
 import '../style/main.css';
@@ -33,7 +33,8 @@ function Ballparks(_) {
             locations.push( {
                     lat: data.features[i].geometry.coordinates[1],
                     lon: data.features[i].geometry.coordinates[0],
-                    ballpark: data.features[i].properties.Ballpark
+                    ballpark: data.features[i].properties.ballpark,
+                    team: data.features[i].properties.team_id
                 }
             )
         }
@@ -48,6 +49,7 @@ function Ballparks(_) {
             .attr('cy', d => projection([d.lon, d.lat])[1])
             .attr('r', 3)
             .attr('fill', 'red');
+
 
     }
 

@@ -12,23 +12,28 @@ import './style/map.css';
 import {parse, fetchJson, fetchCsv} from './utils.js';
 
 // importing modules
-import Metrics from './components/metrics';
-import Mapping from './components/map'
-import Slider from './components/slider';
 import Ballparks from './components/ballparks';
+import Mapping from './components/map'
+import Travel from './components/travel'
+import Metrics from './components/metrics';
+import Slider from './components/slider';
+
 
 // calling factories and setting'em up
-const metrics = Metrics();
 const map = Mapping();
-const slider = Slider();
 const ballparks = Ballparks();
+const travel = Travel();
+
+const metrics = Metrics();
+// const slider = Slider();
+
 
 // TO DO: importing data using the Promise interface
 Promise.all([
     fetchJson('./data/cb_2016_us_state_20m.json'),
     fetchJson('./data/mlb-ballparks.geojson'),
-    fetchCsv('./data/distance-from-fenway.csv', parse)
-]).then(([data, locations, trips]) => {
+    fetchCsv('./data/red_sox_2013_schedule_result.csv', parse)
+]).then(([data, locations, games]) => {
 
     d3.select('.main-container')
         .datum(data)
@@ -38,8 +43,10 @@ Promise.all([
         .datum(locations)
         .each(ballparks);
 
-    // d3.select('.main-container')
-    //     .datum(locations)
-    //     .each(ballparks);
+    d3.select('.side-container')
+        .datum(games)
+        .each(metrics);
+
+    // travel(games,locations)
 
 });
