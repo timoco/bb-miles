@@ -4,26 +4,42 @@ div > * {
 
 /* this works for screen-widths greater than 1200px */
 
+body {
+  background-color: #1A3552;
+}
+
 .container {
   height: 100%;
+
+  background-color: #1A3552;
+
   display: grid;
   grid-template-areas:
       "h h h h h h h h h h h h"
-      "c c c c c c c c c c c c"
+      "m m m m m m m m m m m m"
       "f f f f f f f f f f f f";
 }
 
 .header {
   grid-area: h;
   display: flex;
+  background-color: #1A3552;
+}
+
+.header > h1 {
+  color: #F8F7FC;
 }
 
 .main-container {
 
     /* this needs to be on its own line
      * for the sake of the D3 code on top of the map */
-    grid-area: c;
+    grid-area: m;
 
     width:auto;
     height:600px;
+}
+
+.side-container {
+
 }
