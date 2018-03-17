@@ -27,10 +27,8 @@ const ballparks = Ballparks();
 Promise.all([
     fetchJson('./data/cb_2016_us_state_20m.json'),
     fetchJson('./data/mlb-ballparks.geojson'),
-    // fetchCsv('./data/____/.json'),
-]).then(([data, locations]) => {
-
-    // console.log(data);
+    fetchCsv('./data/distance-from-fenway.csv', parse)
+]).then(([data, locations, trips]) => {
 
     d3.select('.main-container')
         .datum(data)
@@ -39,4 +37,9 @@ Promise.all([
     d3.select('.main-container')
         .datum(locations)
         .each(ballparks);
+
+    // d3.select('.main-container')
+    //     .datum(locations)
+    //     .each(ballparks);
+
 });

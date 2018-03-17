@@ -22,9 +22,16 @@ function Metrics(_) {
         const margin = {t:0, r:0, b:0, l:0};
 
         // data transformation
+        
 
-        // TO DO: draw map
+        const totalLength = path.node().getTotalLength();
 
+        trip.attr("stroke-dasharray", totalLength + " " + totalLength)
+          .attr("stroke-dashoffset", totalLength)
+          .transition()
+          .duration(2000)
+          .ease("linear")
+          .attr("stroke-dashoffset", 0);
 
     }
 

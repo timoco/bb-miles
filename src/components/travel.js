@@ -8,10 +8,9 @@ import {parse} from '../utils'
 import '../style/main.css';
 
 const projection = d3.geoMercator();
-const path = d3.geoPath().projection(projection);
 
 // defining Factory function
-function Mapping(_) {
+function Travel(_) {
 
     // TO DO: create getter-setter variables in factory scope
 
@@ -27,23 +26,26 @@ function Mapping(_) {
         projection.center([-98,39])
             .scale(width);
 
-        const svg = d3.select(root)
-            .append('svg')
-            .attr('width', width + margin.l + margin.r)
-            .attr('height', height + margin.t + margin.b);
-
-        const map = svg.append('g')
-            .attr('transform', `translate(${margin.l},${margin.t})`)
-            .classed('map', true)
-            .selectAll('.base')
-            .data(data.features)
-            .enter()
-            .append('path')
-            .classed('base', true)
-            .attr('d', path)
-            .attr('fill', 'gainsboro');
-
         // Data Transformation
+        const origin = projection([1,1]);// FENWAY COORD
+        const pathData = d3.path();
+        pathData.moveTo(origin[0],origin[1]); // fenway
+        for (let i = 0; i < data.length; i++) {
+            let coord = projection([1,1])
+            pathData.lineTo(coord[0],coord[1]);
+        }
+
+        // TO DO: draw path on map
+        const trip = d3.select('.map')
+            .append('path')
+            .attr('d', pathData.toString())
+            .classed('line')
+            .attr('fill', none)
+            .attr('stroke', 'black')
+            .attr('stroke-width', 1);
+
+
+
 
     }
 
@@ -54,6 +56,6 @@ function Mapping(_) {
 }
 
 // exporting factory function as default
-export default Mapping;
+export default Travel;
 
 // creating projection
