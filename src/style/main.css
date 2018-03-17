@@ -1,0 +1,23 @@
+div > * {
+    border: 1pt dashed black;
+}
+
+.container {
+    display:flex;
+    flex-direction: row;
+}
+
+.strikezone {
+    width:170px;
+    height:235px;
+}
+
+.svg {
+    border: 1pt solid black;
+}
+
+.grid.horizontal,
+.grid.vertical {
+    stroke-width:1px;
+    stroke:black;
+}
