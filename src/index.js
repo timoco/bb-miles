@@ -35,9 +35,9 @@ Promise.all([
     fetchCsv('./data/red_sox_2013_schedule_result.csv', parse)
 ]).then(([data, locations, games]) => {
 
-    // d3.select('.main-container')
-    //     .datum(data)
-    //     .each(map);
+    d3.select('.main-container')
+        .datum(data)
+        .each(map);
 
     d3.select('.main-container')
         .datum(locations)
