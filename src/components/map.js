@@ -36,6 +36,7 @@ function Mapping(_) {
 
         const map = svg.append('g')
             .attr('transform', `translate(${margin.l},${margin.t})`)
+            .classed('map', true)
             .selectAll('.base')
             .data(data.features)
             .enter()

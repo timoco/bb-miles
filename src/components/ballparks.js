@@ -27,15 +27,27 @@ function Ballparks(_) {
             .scale(width);
 
         // Data Transformation
-        const locations = data.features.map(d => {
-            return {
-                long: +d.long,
-                lat: +d.lat,
-                ballparks: d.Ballparks
-            };
-        })
+        let locations = [];
 
-        console.log(data.features);
+        for (let i = 0; i < data.features.length; i++) {
+            locations.push( {
+                    lat: data.features[i].geometry.coordinates[1],
+                    lon: data.features[i].geometry.coordinates[0],
+                    ballpark: data.features[i].properties.Ballpark
+                }
+            )
+        }
+
+        const circles = d3.select('.map')
+            .selectAll('.ballparks')
+            .data(locations)
+            .enter()
+            .append('circle')
+            .classed('ballparks', true)
+            .attr('cx', d => projection([d.lon, d.lat])[0])
+            .attr('cy', d => projection([d.lon, d.lat])[1])
+            .attr('r', 3)
+            .attr('fill', 'red');
 
     }
 
