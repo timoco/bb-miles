@@ -1,5 +1,5 @@
 div > * {
-    border: 1pt dashed black;
+  /*  border: 1pt dashed black; */
 }
 
 /* this works for screen-widths greater than 1200px */
@@ -15,11 +15,13 @@ body {
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows:  auto 40px;
+  grid-template-rows: auto;
+  grid-auto-rows: auto;
   grid-template-areas:
       "h h h h h h h h h h h h"
-      "m m m m m m m c c c c c"
-      "d d d d d d d d d d d d";
+      "m m m m m m m m m m m m"
+      "d d d d d d d d d d d d"
+      "i i i i i i i i i i i i";
 }
 
 .header {
@@ -39,10 +41,13 @@ body {
     grid-area: m;
 
     width:auto;
-    height:400px;
+    height:600px;
 }
 
-
 .side-container {
-  grid-area: c;
+  grid-area: d;
+}
+
+.carto-container {
+  grid-area: i;
 }
