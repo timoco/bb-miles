@@ -9,22 +9,7 @@ import '../style/main.css';
 
 const projection = d3.geoMercator();
 const path = d3.geoPath().projection(projection);
-projection.center([-71,42])
-    .scale(350000);
 
-svg.append("g")
-  .attr("class", "map-tile")
-  .selectAll("path")               //make empty selection
-  .data(dataIn.features)           //bind to the features array in the map data
-  .enter()
-  .append("path")                  //add the paths to the DOM
-  .attr("d", path)                 //actually draw them
-  .attr("class", "feature")
-  .attr("id", function(d) { return d.properties.STUSPS })
-  .attr("fill","#FFFFFF")
-  .attr("stroke","#FFFFFF")
-  .attr("stroke-width",1)
-  .on("click", null);
 
 
 // defining Factory function
@@ -40,6 +25,23 @@ function Mapping(_) {
         const width = root.clientWidth;
         const height = root.clientHeight;
         const margin = {t:0, r:0, b:0, l:0};
+
+        projection.center([-98,39])
+            .scale(width);
+
+        const svg = d3.select(root)
+            .append('svg')
+            .attr('width', width + margin.l + margin.r)
+            .attr('height', height + margin.t + margin.b);
+
+        const map = svg.append('g')
+            .attr('transform', `translate(${margin.l},${margin.t})`)
+            .selectAll('.base')
+            .data(data.features)
+            .enter()
+            .append('path')
+            .classed('base', true)
+            .attr('d', path);
 
         // Data Transformation
 

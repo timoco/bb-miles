@@ -6,25 +6,37 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // importing stylesheets
 import './style/main.css';
-import './style/table.css';
+import './style/map.css';
 
 // importing parsing functions from utils
-import {parse, fetchData} from './utils.js';
+import {parse, fetchJson, fetchCsv} from './utils.js';
 
 // importing modules
 import Metrics from './components/metrics';
 import Mapping from './components/map'
 import Slider from './components/slider';
+import Ballparks from './components/ballparks';
 
 // calling factories and setting'em up
 const metrics = Metrics();
 const map = Mapping();
 const slider = Slider();
+const ballparks = Ballparks();
 
 // TO DO: importing data using the Promise interface
 Promise.all([
-    // fetchJson('./data/____/.json'),
+    fetchJson('./data/cb_2016_us_state_20m.json'),
+    fetchJson('./data/mlb-ballparks.geojson'),
     // fetchCsv('./data/____/.json'),
-]).then(([data]) => {
+]).then(([data, locations]) => {
 
+    // console.log(data);
+
+    d3.select('.main-container')
+        .datum(data)
+        .each(map);
+
+    d3.select('.main-container')
+        .datum(locations)
+        .each(ballparks);
 });

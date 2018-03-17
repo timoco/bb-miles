@@ -5,10 +5,10 @@ import * as d3 from 'd3';
 import {gridData} from '../utils'
 
 // importing stylesheets
-import '../style/table.css';
+import '../style/main.css';
 
 // defining Factory function
-function Slider(_) {
+function Metrics(_) {
 
     // TO DO: create getter-setter variables in factory scope
 
@@ -22,7 +22,10 @@ function Slider(_) {
         const margin = {t:0, r:0, b:0, l:0};
 
         // data transformation
-        
+
+        // TO DO: draw map
+
+
     }
 
     // TO DO: create getter-setter pattern for customization
@@ -32,4 +35,4 @@ function Slider(_) {
 }
 
 // exporting factory function as default
-export default Slider;
+export default Metrics;

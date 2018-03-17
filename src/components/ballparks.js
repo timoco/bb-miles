@@ -2,18 +2,20 @@
 import * as d3 from 'd3';
 
 // importing gridData
-import {gridData} from '../utils'
+import {parse} from '../utils'
 
 // importing stylesheets
 import '../style/main.css';
 
+const projection = d3.geoMercator();
+
 // defining Factory function
-function Metrics(_) {
+function Ballparks(_) {
 
     // TO DO: create getter-setter variables in factory scope
 
     function exports(data) {
-        // selecting root element ==> table container, div where function is called in index.js
+        // selecting root element ==> svg container, div where function is called in index.js
         const root = this;
 
         // declaring setup/layout variables
@@ -21,10 +23,19 @@ function Metrics(_) {
         const height = root.clientHeight;
         const margin = {t:0, r:0, b:0, l:0};
 
-        // data transformation
+        projection.center([-98,39])
+            .scale(width);
 
-        // TO DO: draw map
+        // Data Transformation
+        const locations = data.features.map(d => {
+            return {
+                long: +d.long,
+                lat: +d.lat,
+                ballparks: d.Ballparks
+            };
+        })
 
+        console.log(data.features);
 
     }
 
@@ -35,4 +46,6 @@ function Metrics(_) {
 }
 
 // exporting factory function as default
-export default Metrics;
+export default Ballparks;
+
+// creating projection

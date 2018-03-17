@@ -7,9 +7,9 @@ div > * {
     flex-direction: row;
 }
 
-.strikezone {
-    width:170px;
-    height:235px;
+.main-container {
+    width:1000px;
+    height:500px;
 }
 
 .svg {
